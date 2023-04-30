@@ -12,11 +12,15 @@ public class PowerUpManager : MonoBehaviour
     public List<GameObject> powerUpTemplateList;
     private List<GameObject> powerUpList;
     private float timer;
+    public float removeInterval;
+    private float removeTimer;
 
     private void Start()
     {
         powerUpList = new List<GameObject>();
-        timer = 0;
+        timer = 0f;
+
+        removeTimer = 0;
     }
 
     private void Update()
@@ -28,6 +32,16 @@ public class PowerUpManager : MonoBehaviour
             timer -= spawnInterval;
 
         }
+
+        removeTimer += Time.deltaTime;
+        if (removeTimer > removeInterval)
+        {
+
+            RemoveAllPowerUp();
+            removeTimer = 0;
+
+        }
+
     }
 
     public void GenerateRandomPowerUp()
@@ -57,6 +71,7 @@ public class PowerUpManager : MonoBehaviour
         powerUp.SetActive(true);
 
         powerUpList.Add(powerUp);
+        removeTimer = 0;
     }
 
     public void RemovePowerUp(GameObject powerUp)
@@ -67,11 +82,11 @@ public class PowerUpManager : MonoBehaviour
 
     public void RemoveAllPowerUp()
     {
-        while (powerUpList.Count > 0)
+        foreach (GameObject powerUp in powerUpList)
         {
-            RemovePowerUp(powerUpList[0]);
+            Destroy(powerUp);
         }
-
+        powerUpList.Clear();
     }
 
 }

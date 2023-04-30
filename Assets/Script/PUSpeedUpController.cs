@@ -12,9 +12,15 @@ public class PUSpeedUpController : MonoBehaviour
     {
         if (collision == ball)
         {
-            ball.GetComponent<BallController>().ActivatePUSpeedUp(magnitude);
+            BallController ballControl = collision.GetComponent<BallController>();
+            if (ballControl != null)
+            {
+                ballControl.ActivatePUBallSpeedUp(magnitude);
+            }
+
             manager.RemovePowerUp(gameObject);
         }
+
         
     }
 }

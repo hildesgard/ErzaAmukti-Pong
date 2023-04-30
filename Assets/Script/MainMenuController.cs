@@ -16,4 +16,16 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("Created By Erza");
 
     }
+
+    public void OpenCredit()
+    {
+        SceneManager.LoadScene("Credit");
+
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+
+    }
 }
